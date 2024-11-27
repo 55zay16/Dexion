@@ -62,7 +62,7 @@ function UIlib:Init(GameName)
 
     local function MoveUIBinding()
         local script = Instance.new('Script', Title)
-        script.name = "MoveUiTitle"
+        script.Name = "MoveUiTitle"
         
         local UIS = game:GetService('UserInputService')
         local frame = script.Parent
@@ -115,7 +115,7 @@ function UIlib:Init(GameName)
 
     coroutine.wrap(MoveUIBinding)()
     coroutine.wrap(ToggleBinding)()
-    
+
     return DexionUI
 end
 
@@ -219,8 +219,6 @@ function UIlib:AddTab(DexionUI,Tabtitle,XOFFSET,X,YOFFSET,Y)
         end)
 
     end
-
-
 
     coroutine.wrap(MoveUIBinding)()
 
