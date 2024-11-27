@@ -3,7 +3,7 @@ local UIlib = {}
 function UIlib:Init(GameName)
     -- Find past UI and remove it
     for _, i in pairs(game.CoreGui:GetChildren()) do
-        if i.Name == "Dexion-" + GameName then
+        if i.Name == "Dexion-" .. GameName then
             i:Destroy()
         end
     end
@@ -16,7 +16,7 @@ function UIlib:Init(GameName)
     local BelowTitleBar = Instance.new("Frame")
 
 
-    DexionUI.Name = "Dexion-" + GameName
+    DexionUI.Name = "Dexion-" .. GameName
     DexionUI.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
     DexionUI.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
@@ -29,7 +29,7 @@ function UIlib:Init(GameName)
     Title.Position = UDim2.new(-0.000513400766, 0, -0.00108361838, 0)
     Title.Size = UDim2.new(0, 145, 0, 47)
     Title.Font = Enum.Font.Unknown
-    Title.Text = "Dexion"
+    Title.Text = "Dexion-" .. GameName
     Title.TextColor3 = Color3.fromRGB(255, 0, 0)
     Title.TextScaled = true
     Title.TextSize = 14.000
@@ -44,7 +44,7 @@ function UIlib:Init(GameName)
     BelowTitleBar.BorderSizePixel = 0
     BelowTitleBar.Position = UDim2.new(0.0326798148, 0, 1, 0)
     BelowTitleBar.Size = UDim2.new(0, 137, 0, 2)
-    
+
     -- Code Bindings
     
 end
