@@ -157,6 +157,49 @@ function UIlib:AddTab(DexionUI,Tabtitle,XOFFSET,X,YOFFSET,Y)
     Line.Position = UDim2.new(0, 0, 0.959999979, 0)
     Line.Size = UDim2.new(0, 200, 0, 1)
 
+    local function MoveUIBinding()
+        local script = Instance.new('Script', Tab)
+        
+        local UIS = game:GetService('UserInputService')
+        local frame = script.Parent
+
+        local dragToggle = nil
+        local dragSpeed = 0.01
+        local dragStart = nil
+        local startPos = nil
+
+        local function updateInput(input)
+            local delta = input.Position - dragStart
+            local position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X,startPos.Y.Scale, startPos.Y.Offset + delta.Y) 
+            game:GetService('TweenService') :Create(frame, TweenInfo.new(dragSpeed), {Position = position}) :Play()
+        end
+
+        frame.InputBegan:Connect(function(input)
+            if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) then
+                dragToggle = true
+                dragStart = input.Position
+                startPos = frame.Position
+                input.Changed:Connect(function()
+                    if input.UserInputState == Enum.UserInputState.End then
+                        print('Release')
+                        dragToggle = false
+                    end
+                end)
+            end
+        end)
+
+        UIS.InputChanged:Connect(function(input)
+            if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+                if dragToggle then
+                    updateInput(input)
+                end
+            end
+        end)
+
+    end
+
+    coroutine.wrap(MoveUIBinding)()
+
     return Tab
 end
 
@@ -203,10 +246,7 @@ function UIlib:AddButton(Title,TargetTab,Callback)
             Display.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
             Callback(false) -- not enabled
         end
-
     end)
 end
 
 return UIlib  
-
-
