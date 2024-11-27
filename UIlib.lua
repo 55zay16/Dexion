@@ -116,7 +116,7 @@ function UIlib:Init(GameName)
 
         UIS.InputBegan:Connect(function(input)
             if input.KeyCode == Enum.KeyCode.RightAlt then
-                script.Parent.Enabled.Value = not script.Parent.Enabled.Value
+                script.Parent.Enabled = not script.Parent.Enabled
             end
         end) 
     end
