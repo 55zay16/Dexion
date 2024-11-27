@@ -1,2 +1,2 @@
-# The dexion project
-A powerful roblox exploit.
+# The Dexion Project
+A powerful roblox exploit designed to satisfy your needs.
