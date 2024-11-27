@@ -1,2 +1,2 @@
-This project started on 11/27/2024.
-Bridge Duels script for Roblox
+# The dexion project
+A powerful roblox exploit.
