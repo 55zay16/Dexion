@@ -20,14 +20,16 @@ function UIlib:Init(GameName)
     Background.Parent = DexionUI
     Background.Size = UDim2.new(1,0,1,0)
     Background.ZIndex = -10
-    Background.BackgroundColor3 = Color3.fromRGB(190, 0, 0)
+    Background.BackgroundColor3 = Color3.fromRGB(97, 0, 0)
     Background.BackgroundTransparency = 0.5
     Background.Position = UDim2.new(0, 0, 0, 0)
     
     DexionUI.Name = "Dexion-" .. GameName
     DexionUI.Parent = game.CoreGui
     DexionUI.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-    
+    DexionUI.ResetOnSpawn = false
+    DexionUI.IgnoreGuiInset = true 
+
     Title.Name = "Title"
     Title.Parent = DexionUI
     Title.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
