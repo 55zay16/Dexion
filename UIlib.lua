@@ -62,7 +62,6 @@ function UIlib:Init(GameName)
 
     local function MoveUIBinding()
         local script = Instance.new('Script', Title)
-        script.Name = "MoveUiTitle"
         
         local UIS = game:GetService('UserInputService')
         local frame = script.Parent
@@ -103,7 +102,6 @@ function UIlib:Init(GameName)
     end
     local function ToggleBinding() 
         local script = Instance.new('Script', DexionUI)
-        script.Name = "ToggleUi"
         
         local UIS = game:GetService('UserInputService')
         UIS.InputBegan:Connect(function(input)
@@ -180,7 +178,6 @@ function UIlib:AddTab(DexionUI,Tabtitle,XOFFSET,X,YOFFSET,Y)
 
     local function MoveUIBinding()
         local script = Instance.new('Script', Tab)
-        script.Name = "MoveUiTab"
         
         local UIS = game:GetService('UserInputService')
         local frame = script.Parent
