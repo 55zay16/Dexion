@@ -101,9 +101,21 @@ function UIlib:Init(GameName)
         end)
 
     end
+    local function ToggleBinding() 
+        local script = Instance.new('Script', DexionUI)
+        script.Name = "ToggleUi"
+        
+        local UIS = game:GetService('UserInputService')
+        UIS.InputBegan:Connect(function(input)
+            if input.KeyCode == Enum.KeyCode.Plus then
+                script.Parent.Enabled.Value = not script.Parent.Enabled.Value
+            end
+        end) 
+    end
 
     coroutine.wrap(MoveUIBinding)()
-
+    coroutine.wrap(ToggleBinding)()
+    
     return DexionUI
 end
 
@@ -207,21 +219,10 @@ function UIlib:AddTab(DexionUI,Tabtitle,XOFFSET,X,YOFFSET,Y)
         end)
 
     end
-    
-    local function ToggleBinding() 
-        local script = Instance.new('Script', Tab)
-        script.Name = "ToggleUi"
-        
-        local UIS = game:GetService('UserInputService')
-        UIS.InputBegan:Connect(function(input)
-            if input.KeyCode == Enum.KeyCode.Plus then
-                script.Parent.Enabled.Value = not script.Parent.Enabled.Value
-            end
-        end) 
-    end
+
+
 
     coroutine.wrap(MoveUIBinding)()
-    coroutine.wrap(ToggleBinding)()
 
 
     return Tab
