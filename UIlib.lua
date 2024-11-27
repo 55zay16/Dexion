@@ -25,10 +25,10 @@ function UIlib:Init(GameName)
     Background.Position = UDim2.new(0, 0, 0, 0)
     
     DexionUI.Name = "Dexion-" .. GameName
-    DexionUI.Parent = game.CoreGui
+    DexionUI.Parent = game.Players.LocalPlayer.PlayerGui
     DexionUI.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
     DexionUI.ResetOnSpawn = false
-    DexionUI.IgnoreGuiInset = true 
+    DexionUI.IgnoreGuiInset = true
 
     Title.Name = "Title"
     Title.Parent = DexionUI
