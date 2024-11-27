@@ -225,7 +225,7 @@ function UIlib:AddTab(DexionUI,Tabtitle,XOFFSET,X,YOFFSET,Y)
     return Tab
 end
 
-function UIlib:AddButton(Title,TargetTab,Callback)
+function UIlib:AddButton(TargetTab,Title,Callback)
     local Button = Instance.new("TextButton")
     local Line = Instance.new("Frame")
     local Display = Instance.new("Frame")
