@@ -113,8 +113,9 @@ function UIlib:Init(GameName)
         local script = Instance.new('Script', DexionUI)
         
         local UIS = game:GetService('UserInputService')
+
         UIS.InputBegan:Connect(function(input)
-            if input.KeyCode == Enum.KeyCode.Plus then
+            if input.KeyCode == Enum.KeyCode.RightAlt then
                 script.Parent.Enabled.Value = not script.Parent.Enabled.Value
             end
         end) 
