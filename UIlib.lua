@@ -14,7 +14,15 @@ function UIlib:Init(GameName)
     local BelowTitleBar = Instance.new("Frame")
     local UIStroke = Instance.new("UIStroke")
     local UIStroke2 = Instance.new("UIStroke")
-    
+    local Background = Instance.new("Frame")
+
+    Background.Name = "Background"
+    Background.Parent = DexionUI
+    Background.Size = UDim2.new(1,0,1,0)
+    Background.ZIndex = -10
+    Background.BackgroundColor3 = Color3.fromRGB(190, 0, 0)
+    Background.BackgroundTransparency = 0.5
+    Background.Position = UDim2.new(0, 0, 0, 0)
     
     DexionUI.Name = "Dexion-" .. GameName
     DexionUI.Parent = game.CoreGui
@@ -123,15 +131,6 @@ function UIlib:AddTab(DexionUI,Tabtitle,XOFFSET,X,YOFFSET,Y)
     local Buttons = Instance.new("ScrollingFrame")
     local UIListLayout = Instance.new("UIListLayout")
     local Line = Instance.new("Frame")
-    local Background = Instance.new("Frame")
-
-    Background.Name = "Background"
-    Background.Parent = DexionUI
-    Background.Size = UDim2.new(1,0,1,0)
-    Background.ZIndex = -10
-    Background.BackgroundColor3 = Color3.fromRGB(190, 0, 0)
-    Background.BackgroundTransparency = 0.5
-    Background.Position = UDim2.new(0, 0, 0, 0)
     
     Tab.Name = Tabtitle
     Tab.Parent = DexionUI
