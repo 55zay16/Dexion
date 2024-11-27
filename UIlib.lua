@@ -240,6 +240,7 @@ function UIlib:AddButton(TargetTab,Title,Callback)
     Button.Font = Enum.Font.SourceSansSemibold
     Button.TextColor3 = Color3.fromRGB(255, 255, 255)
     Button.TextSize = 28.000
+    Button.Text = Title
     
     Line.Name = "Line"
     Line.Parent = Button
