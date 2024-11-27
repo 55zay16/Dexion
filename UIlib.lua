@@ -62,6 +62,7 @@ function UIlib:Init(GameName)
 
     local function MoveUIBinding()
         local script = Instance.new('Script', Title)
+        script.name = "MoveUiTitle"
         
         local UIS = game:GetService('UserInputService')
         local frame = script.Parent
@@ -113,6 +114,14 @@ function UIlib:AddTab(DexionUI,Tabtitle,XOFFSET,X,YOFFSET,Y)
     local Buttons = Instance.new("ScrollingFrame")
     local UIListLayout = Instance.new("UIListLayout")
     local Line = Instance.new("Frame")
+    local Background = Instance.new("Frame")
+
+    Background.Name = "Background"
+    Background.Parent = Tab
+    Background.Size = UDim2.new(1,0,1,0)
+    Background.ZIndex = -10
+    Background.BackgroundColor3 = Color3.fromRGB(190, 0, 0)
+    Background.Position = UDim2.new(0, 0, 0, 0)
     
     Tab.Name = Tabtitle
     Tab.Parent = DexionUI
@@ -159,6 +168,7 @@ function UIlib:AddTab(DexionUI,Tabtitle,XOFFSET,X,YOFFSET,Y)
 
     local function MoveUIBinding()
         local script = Instance.new('Script', Tab)
+        script.Name = "MoveUiTab"
         
         local UIS = game:GetService('UserInputService')
         local frame = script.Parent
@@ -197,8 +207,22 @@ function UIlib:AddTab(DexionUI,Tabtitle,XOFFSET,X,YOFFSET,Y)
         end)
 
     end
+    
+    local function ToggleBinding() 
+        local script = Instance.new('Script', Tab)
+        script.Name = "ToggleUi"
+        
+        local UIS = game:GetService('UserInputService')
+        UIS.InputBegan:Connect(function(input)
+            if input.KeyCode == Enum.KeyCode.Plus then
+                script.Parent.Enabled.Value = not script.Parent.Enabled.Value
+            end
+        end) 
+    end
 
     coroutine.wrap(MoveUIBinding)()
+    coroutine.wrap(ToggleBinding)()
+
 
     return Tab
 end
