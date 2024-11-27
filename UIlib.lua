@@ -117,6 +117,9 @@ function UIlib:Init(GameName)
         UIS.InputBegan:Connect(function(input)
             if input.KeyCode == Enum.KeyCode.RightAlt then
                 script.Parent.Enabled = not script.Parent.Enabled
+                if script.Parent.Enabled then
+                    userInputService.MouseBehavior = Enum.MouseBehavior.Default
+                end
             end
         end) 
     end
