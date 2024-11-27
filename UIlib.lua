@@ -156,6 +156,8 @@ function UIlib:AddTab(DexionUI,Tabtitle,XOFFSET,X,YOFFSET,Y)
     Line.BorderSizePixel = 0
     Line.Position = UDim2.new(0, 0, 0.959999979, 0)
     Line.Size = UDim2.new(0, 200, 0, 1)
+
+    return Tab
 end
 
 function UIlib:AddButton(Title,TargetTab,Callback)
