@@ -1,1 +1,119 @@
+local UserInputService = game:GetService("UserInputService")
+local UIlib = loadstring(game:HttpGet("https://raw.githubusercontent.com/55zay16/Dexion/refs/heads/main/UIlib.lua"))()
+
+local Values = {
+    ["tpaura"] = false,
+    ["anti die"] = false,
+
+    ["flight"] = false,
+    ["infinitejump"] = false,
+
+    ["chatspammer"] = false,
+}
+
+local BridgeDuel = UIlib:Init("Bridge Duel")
+
+local CombatTab = UIlib:AddTab(BridgeDuel,"Combat",0.092,0,0.106,0)
+local MovementTab = UIlib:AddTab(BridgeDuel,"Movement",0.259,0,0.106,0)
+local UtilityTab = UIlib:AddTab(BridgeDuel,"Utility",0.429,0,0.106,0)
+
+local TempY = 0
+
+UIlib:AddButton(CombatTab,"Tp Aura",function()
+    Values["tpaura"] = not Values["tpaura"]
+end)
+
+UIlib:AddButton(CombatTab,"Anti Die",function()
+    Values["anti die"] = not Values["anti die"]
+end)
+
+
+UIlib:AddButton(MovementTab,"Flight",function()
+    TempY = game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Y
+    Values["flight"] = not Values["flight"]
+end)
+
+UIlib:AddButton(MovementTab,"Infinite Jump",function()
+    Values["infinitejump"] = not Values["infinitejump"]
+end)
+
+UIlib:AddButton(UtilityTab,"Chat Spammer",function()
+    Values["chatspammer"] = not Values["chatspammer"]
+end)
+
+
+local MaxDistance = 15
+local TempDisableAura = false
+local lastTick = tick()
+
+UserInputService.InputBegan:Connect(function(input)
+    if input.KeyCode == Enum.KeyCode.Space and Values["infinitejump"] == true then
+        game.Players.LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+    end
+end)
+
+function SpamChat()
+    while task.wait(3) do
+        if Values["chatspammer"] == true then
+            game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(game.Players[Random.new().NextInteger(1, #game.Players)] .. " GET GOOD FR EZ WIN LIGHT WORK - DEXION-BRIDGE DUEL - EXPLOIT SCRIPT - USE DEXION")
+        end
+    end
+end
+
+coroutine.wrap(SpamChat)()
+
+while task.wait() do 
+    local Distance = math.huge
+    local Target = nil
+
+    pcall(function()
+        for _, i in pairs(game.Players:GetPlayers()) do
+            if i.Name ~= game.Players.LocalPlayer.Name then
+                local DistanceToPlayer = (i.Character.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
+                
+                if DistanceToPlayer < Distance and DistanceToPlayer <= MaxDistance then
+                    -- make sure they are on differnt teams
+                    if i.Team ~= game.Players.LocalPlayer.Team or game.PlaceId == 11630038968 then
+                        Distance = DistanceToPlayer
+                        Target = i
+                    end
+                end
+            end
+        end
+    end)
+
+    pcall(function()
+
+        if Values["tpaura"] == true and TempDisableAura == false and Target.Character.Humanoid.Health > 0 then
+            task.wait(0.05)
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame
+            
+            mouse1click()
+        end
+
+        if Values["anti die"] == true and Values["tpaura"] == true and game.Players.LocalPlayer.Character.Humanoid.Health <= 40 then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame * CFrame.new(0,MaxDistance * 1.3,0)
+            game.Workspace.Gravity = 0
+            game.Players.LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+
+            TempDisableAura = true
+        else
+            if Values["anti die"] == true and Values["tpaura"] == true and game.Players.LocalPlayer.Character.Humanoid.Health > 60 then
+                TempDisableAura = false
+                game.Workspace.Gravity = 196.2
+            elseif Values["tpaura"] == true then
+                game.Workspace.Gravity = 0
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame * CFrame.new(0,MaxDistance * 1.5,0)
+                game.Players.LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+            end
+        end
+
+        if Values["flight"] == true then
+            game.Workspace.Gravity = 0
+        else
+            game.Workspace.Gravity = 196.2
+        end
+    end)
+end
+
 
