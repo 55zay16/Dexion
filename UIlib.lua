@@ -205,7 +205,6 @@ function UIlib:AddTab(DexionUI,Tabtitle,XOFFSET,X,YOFFSET,Y)
                 startPos = frame.Position
                 input.Changed:Connect(function()
                     if input.UserInputState == Enum.UserInputState.End then
-                        print('Release')
                         dragToggle = false
                     end
                 end)
