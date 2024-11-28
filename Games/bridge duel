@@ -8,14 +8,12 @@ local Values = {
     ["flight"] = false,
     ["infinitejump"] = false,
 
-    ["chatspammer"] = false,
 }
 
 local BridgeDuel = UIlib:Init("Bridge Duel")
 
 local CombatTab = UIlib:AddTab(BridgeDuel,"Combat",0.092,0,0.106,0)
 local MovementTab = UIlib:AddTab(BridgeDuel,"Movement",0.259,0,0.106,0)
-local UtilityTab = UIlib:AddTab(BridgeDuel,"Utility",0.429,0,0.106,0)
 
 local TempY = 0
 
@@ -37,9 +35,6 @@ UIlib:AddButton(MovementTab,"Infinite Jump",function()
     Values["infinitejump"] = not Values["infinitejump"]
 end)
 
-UIlib:AddButton(UtilityTab,"Chat Spammer",function()
-    Values["chatspammer"] = not Values["chatspammer"]
-end)
 
 
 local MaxDistance = 15
@@ -51,20 +46,6 @@ UserInputService.InputBegan:Connect(function(input)
         game.Players.LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
     end
 end)
-
-local ChatService = game:GetService("ChatService")
-
-function SpamChat()
-    while task.wait(3) do
-        if Values["chatspammer"] == true then
-            ChatService:Chat(game.Players[Random.new().NextInteger(1, #game.Players)].Name .. " GET GOOD FR EZ WIN LIGHT WORK - DEXION-BRIDGE DUEL - EXPLOIT SCRIPT - USE DEXION")
-        end
-    end
-end
-
-coroutine.wrap(SpamChat)()
-
-
 
 while task.wait() do 
     local Distance = math.huge
