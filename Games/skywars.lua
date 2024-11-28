@@ -1,4 +1,3 @@
-
 local Players = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
 local UIlib = loadstring(game:HttpGet("https://raw.githubusercontent.com/55zay16/Dexion/refs/heads/main/UIlib.lua"))()
@@ -183,10 +182,10 @@ local CombatThread = coroutine.create(function()
                 
                 if Values["autofarm"] == true then  -- teleport to random player that isent a teammate and set them as the target
                     local RandomPlayer = game.Players:GetPlayers()[math.random(1,#game.Players:GetPlayers())]
-
+                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = RandomPlayer.Character.HumanoidRootPart.CFrame
+                    
                     if framecount > 30 then
                         framecount = 0
-                        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = RandomPlayer.Character.HumanoidRootPart.CFrame
                         Target = RandomPlayer
                     end
                 end
