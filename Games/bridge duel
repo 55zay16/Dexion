@@ -151,7 +151,7 @@ local framecount = 0
 local framecount2 = 0
 
 local CombatThread = coroutine.create(function()
-    local MaxDistance = 25
+    local MaxDistance = 50
 
     while Running do
 
@@ -197,7 +197,7 @@ local CombatThread = coroutine.create(function()
                     local targetPosition = Target.Character.HumanoidRootPart.Position 
                     local characterPosition = game.Players.LocalPlayer.Character.HumanoidRootPart.Position 
                     local directionToTarget = (targetPosition - characterPosition).Unit 
-                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(characterPosition, targetPosition) 
+                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(characterPosition,characterPosition.Y, targetPosition) 
                     if Skywars.Enabled == false then    
                         mouse1click()
                     end
