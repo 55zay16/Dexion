@@ -168,6 +168,7 @@ function UIlib:AddTab(DexionUI,Tabtitle,XOFFSET,X,YOFFSET,Y)
     Buttons.BorderSizePixel = 0
     Buttons.Position = UDim2.new(0, 0, 1, 0)
     Buttons.Size = UDim2.new(0, 200, 0, 484)
+    Buttons.AutomaticCanvasSize = Enum.AutomaticSize.Y
     Buttons.HorizontalScrollBarInset = Enum.ScrollBarInset.ScrollBar
     
     UIListLayout.Parent = Buttons
