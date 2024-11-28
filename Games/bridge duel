@@ -161,7 +161,7 @@ while Running do
                     if Values["flight"] == false then
                         game.Workspace.Gravity = 196.2
                     end
-                elseif Values["tpaura"] == true then
+                elseif Values["tpaura"] == true and Values["anti die"] == true and game.Players.LocalPlayer.Character.Humanoid.Health <= 60 then
                     game.Workspace.Gravity = 0
                     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame * CFrame.new(0,MaxDistance * 1.5,0)
                     game.Players.LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
