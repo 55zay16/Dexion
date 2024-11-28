@@ -134,6 +134,9 @@ while Running do
 
     pcall(function()
         if Values["uninject"] == true then 
+            for _,i in pairs(Values) do
+                i = false
+            end
             BridgeDuel:Destroy()
             Running = false
         end
