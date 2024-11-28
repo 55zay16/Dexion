@@ -137,6 +137,24 @@ while Running do
             for _,i in pairs(Values) do
                 i = false
             end
+            for _, i in pairs(game.Players:GetPlayers()) do
+                if i.Character:FindFirstChild("Highlight") then
+                    i.Character.Highlight:Destroy()
+                end
+            end
+            
+            for _, i in pairs(game.Players:GetPlayers()) do
+                if i.Character:FindFirstChild("NameTag") then
+                    i.Character.NameTag:Destroy()
+                end
+            end
+
+            for _, i in pairs(game.Players:GetPlayers()) do
+                if i.Character:FindFirstChild("Tracer") then
+                    i.Character.Tracer:Destroy()
+                end
+            end
+
             BridgeDuel:Destroy()
             Running = false
         end
