@@ -58,7 +58,7 @@ while task.wait() do
                 
                 if DistanceToPlayer < Distance and DistanceToPlayer <= MaxDistance then
                     -- make sure they are on differnt teams
-                    if i.Team ~= game.Players.LocalPlayer.Team or game.PlaceId == 11630038968 then
+                    if i.Team ~= game.Players.LocalPlayer.Team then
                         Distance = DistanceToPlayer
                         Target = i
                     end
