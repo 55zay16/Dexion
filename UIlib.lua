@@ -2,7 +2,7 @@ local UIlib = {}
 
 function UIlib:Init(GameName)
     -- Find past UI and remove it
-    for _, i in pairs(game.Players.LocalPlayer.PlayerGui:GetChildren()) do
+    for _, i in pairs(game.CoreGui:GetChildren()) do
         if i.Name == "Dexion-" .. GameName then
             i:Destroy()
         end
@@ -25,7 +25,7 @@ function UIlib:Init(GameName)
     Background.Position = UDim2.new(0, 0, 0, 0)
     
     DexionUI.Name = "Dexion-" .. GameName
-    DexionUI.Parent = game.Players.LocalPlayer.PlayerGui
+    DexionUI.Parent = game.CoreGui
     DexionUI.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
     DexionUI.ResetOnSpawn = false
     DexionUI.IgnoreGuiInset = true
