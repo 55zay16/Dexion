@@ -146,7 +146,9 @@ while Running do
                 task.wait(0.05)
                 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame
                 
-                mouse1click()
+                if BridgeDuel.Enabled == false then
+                    mouse1click()
+                end
             end
 
             if Values["anti die"] == true and Values["tpaura"] == true and game.Players.LocalPlayer.Character.Humanoid.Health <= 40 then
