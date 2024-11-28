@@ -2,7 +2,7 @@ local UIlib = {}
 
 function UIlib:Init(GameName)
     -- Find past UI and remove it
-    for _, i in pairs(game.CoreGui:GetChildren()) do
+    for _, i in pairs(game.Players.LocalPlayer.PlayerGui:GetChildren()) do
         if i.Name == "Dexion-" .. GameName then
             i:Destroy()
         end
@@ -205,6 +205,7 @@ function UIlib:AddTab(DexionUI,Tabtitle,XOFFSET,X,YOFFSET,Y)
                 startPos = frame.Position
                 input.Changed:Connect(function()
                     if input.UserInputState == Enum.UserInputState.End then
+                        print('Release')
                         dragToggle = false
                     end
                 end)
