@@ -87,7 +87,7 @@ local CombatThread = coroutine.create(function()
             pcall(function()
                 if game:GetService("Players").LocalPlayer.Team.Name == "Waiting" then
                 else
-                    if Values["ballaura"] == true and BladeBall.Enabled == true then
+                    if Values["ballaura"] == true and BladeBall.Enabled == false then
                         -- get nearist ball
                         local Dis = math.huge
                         local Ball = nil
@@ -106,7 +106,7 @@ local CombatThread = coroutine.create(function()
                         end
                     end
 
-                    if Values["balltp"] == true and BladeBall.Enabled == true then
+                    if Values["balltp"] == true and BladeBall.Enabled == false then
                         for _, i in pairs(game.Workspace.Balls:GetChildren()) do
                             mouse1click()
                             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = i.CFrame
