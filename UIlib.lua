@@ -25,7 +25,7 @@ function UIlib:Init(GameName)
     Background.Position = UDim2.new(0, 0, 0, 0)
     
     DexionUI.Name = "Dexion-" .. GameName
-    DexionUI.Parent = game:GetService("Players").LocalPlayer.PlayerGui
+    DexionUI.Parent = game.CoreGui
     DexionUI.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
     DexionUI.ResetOnSpawn = false
     DexionUI.IgnoreGuiInset = true
