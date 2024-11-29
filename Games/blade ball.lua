@@ -91,7 +91,7 @@ local CombatThread = coroutine.create(function()
                         -- get nearist ball
                         local Dis = math.huge
                         local Ball = nil
-                        local MaxDis = 50
+                        local MaxDis = 30
 
                         for _, i in pairs(game.Workspace.Balls:GetChildren()) do
                             local DisToBall = (i.CFrame.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
