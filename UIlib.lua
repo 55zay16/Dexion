@@ -1,7 +1,7 @@
 local UIlib = {}
 
 function UIlib:Init(GameName)
-    -- Find past UI and remove it
+    -- finds past UI and removes it
     for _, i in pairs(game.CoreGui:GetChildren()) do
         if i.Name == "Dexion-" .. GameName then
             i:Destroy()
