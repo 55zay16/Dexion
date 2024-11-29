@@ -1,8 +1,8 @@
 local UIlib = {}
 
 function UIlib:Init(GameName)
-    -- finds past UI and removes it
-    for _, i in pairs(game.CoreGui:GetChildren()) do
+    -- Find past UI and remove it
+    for _, i in pairs(game.Players.LocalPlayer.PlayerGui:GetChildren()) do
         if i.Name == "Dexion-" .. GameName then
             i:Destroy()
         end
@@ -25,7 +25,7 @@ function UIlib:Init(GameName)
     Background.Position = UDim2.new(0, 0, 0, 0)
     
     DexionUI.Name = "Dexion-" .. GameName
-    DexionUI.Parent = game.CoreGui
+    DexionUI.Parent = game.Players.LocalPlayer.PlayerGui
     DexionUI.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
     DexionUI.ResetOnSpawn = false
     DexionUI.IgnoreGuiInset = true
@@ -118,7 +118,7 @@ function UIlib:Init(GameName)
             if input.KeyCode == Enum.KeyCode.RightAlt then
                 script.Parent.Enabled = not script.Parent.Enabled
                 if script.Parent.Enabled then
-                    userInputService.MouseBehavior = Enum.MouseBehavior.Default
+                    UIS.MouseBehavior = Enum.MouseBehavior.Default
                 end
             end
         end) 
@@ -206,7 +206,6 @@ function UIlib:AddTab(DexionUI,Tabtitle,XOFFSET,X,YOFFSET,Y)
                 startPos = frame.Position
                 input.Changed:Connect(function()
                     if input.UserInputState == Enum.UserInputState.End then
-                        print('Release')
                         dragToggle = false
                     end
                 end)
@@ -274,6 +273,565 @@ function UIlib:AddButton(TargetTab,Title,Callback)
             Callback(false) -- not enabled
         end
     end)
+end
+
+function UIlib:AddPropertiesButton(TargetTab,Title,Callback)
+    local Button = Instance.new("TextButton")
+    local Line = Instance.new("Frame")
+    local Display = Instance.new("Frame")
+    local UICorner = Instance.new("UICorner")
+    
+    Button.Name = Title
+    Button.Parent = TargetTab.Buttons
+    Button.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
+    Button.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    Button.BorderSizePixel = 0
+    Button.Size = UDim2.new(0, 200, 0, 45)
+    Button.Font = Enum.Font.SourceSansSemibold
+    Button.TextColor3 = Color3.fromRGB(255, 255, 255)
+    Button.TextSize = 28.000
+    Button.Text = Title
+    
+    Line.Name = "Line"
+    Line.Parent = Button
+    Line.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+    Line.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    Line.BorderSizePixel = 0
+    Line.Position = UDim2.new(0, 0, 0.98222214, 0)
+    Line.Size = UDim2.new(0, 200, 0, 1)
+    
+    Display.Name = "Display"
+    Display.Parent = Button
+    Display.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+    Display.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    Display.BorderSizePixel = 0
+    Display.Position = UDim2.new(0.0500000007, 0, 0.355555564, 0)
+    Display.Size = UDim2.new(0, 12, 0, 12)
+    
+    UICorner.CornerRadius = UDim.new(2, 0)
+    UICorner.Parent = Display
+    
+    local PropertiesMenu = Instance.new("Frame")
+    local NameForProperty = Instance.new("TextLabel")
+    local PropertyLine2 = Instance.new("Frame")
+    local PropertyLine1 = Instance.new("Frame")
+    local ScrollingFrame = Instance.new("ScrollingFrame")
+    local UIListLayout = Instance.new("UIListLayout")
+
+    PropertiesMenu.Name = Title .. "-PropertiesMenu"
+    PropertiesMenu.Parent = TargetTab.Buttons
+    PropertiesMenu.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    PropertiesMenu.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    PropertiesMenu.BorderSizePixel = 0
+    PropertiesMenu.Visible = false
+    PropertiesMenu.Position = UDim2.new(0, 0, 0.0929752067, 0)
+    PropertiesMenu.Size = UDim2.new(0, 200, 0, 125)
+
+    NameForProperty.Name = "Property"
+    NameForProperty.Parent = PropertiesMenu
+    NameForProperty.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    NameForProperty.BackgroundTransparency = 1.000
+    NameForProperty.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    NameForProperty.BorderSizePixel = 0
+    NameForProperty.Position = UDim2.new(0, 0, -0.0163635258, 0)
+    NameForProperty.Size = UDim2.new(0, 112, 0, 17)
+    NameForProperty.Font = Enum.Font.SourceSansSemibold
+    NameForProperty.Text =  Title  .. " Properties"
+    NameForProperty.TextColor3 = Color3.fromRGB(255, 255, 255)
+    NameForProperty.TextScaled = true
+    NameForProperty.TextSize = 14.000
+    NameForProperty.TextWrapped = true
+
+    PropertyLine2.Name = "PropertyLine2"
+    PropertyLine2.Parent = PropertiesMenu
+    PropertyLine2.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+    PropertyLine2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    PropertyLine2.BorderSizePixel = 0
+    PropertyLine2.Position = UDim2.new(0, 0, 0.991999984, 0)
+    PropertyLine2.Size = UDim2.new(0, 200, 0, 1)
+
+    PropertyLine1.Name = "PropertyLine1"
+    PropertyLine1.Parent = PropertiesMenu
+    PropertyLine1.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+    PropertyLine1.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    PropertyLine1.BorderSizePixel = 0
+    PropertyLine1.Position = UDim2.new(0, 0, 0.122000001, 0)
+    PropertyLine1.Size = UDim2.new(0, 200, 0, 1)
+
+    ScrollingFrame.Parent = PropertiesMenu
+    ScrollingFrame.Active = true
+    ScrollingFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    ScrollingFrame.BackgroundTransparency = 1.000
+    ScrollingFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    ScrollingFrame.BorderSizePixel = 0
+    ScrollingFrame.ScrollBarThickness = 0.5
+    ScrollingFrame.ScrollBarImageColor3 = Color3.fromRGB(255, 0, 0)
+    ScrollingFrame.AutomaticCanvasSize = Enum.AutomaticSize.Y
+    ScrollingFrame.HorizontalScrollBarInset = Enum.ScrollBarInset.ScrollBar
+
+    ScrollingFrame.Position = UDim2.new(0, 0, 0.129999995, 0)
+    ScrollingFrame.Size = UDim2.new(0, 200, 0, 108)
+    ScrollingFrame.ScrollBarThickness = 0
+
+    UIListLayout.Parent = ScrollingFrame
+    UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+
+    Button.MouseButton1Click:Connect(function()
+        if Display.BackgroundColor3 == Color3.fromRGB(255, 0, 0) then
+            Display.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+            Callback(true) -- enabled
+        else
+            Display.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+            Callback(false) -- not enabled
+        end
+    end)
+
+    Button.MouseButton2Click:Connect(function()
+        if PropertiesMenu.Visible == false then
+            PropertiesMenu.Visible = true
+        else
+            PropertiesMenu.Visible = false
+        end
+    end)
+
+    return PropertiesMenu
+end
+
+function UIlib:AddPropertiesLabel(TargetProperties,Text)
+    local TextLabel = Instance.new("TextLabel")
+    local PropertyLine1 = Instance.new("Frame")
+
+    TextLabel.Parent = TargetProperties.Parent[TargetProperties.Name].ScrollingFrame
+    TextLabel.BackgroundColor3 = Color3.fromRGB(24, 24, 24)
+    TextLabel.BackgroundTransparency = 1.000
+    TextLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    TextLabel.BorderSizePixel = 0
+    TextLabel.Position = UDim2.new(0, 0, 0.648148119, 0)
+    TextLabel.Size = UDim2.new(1, 0,0.296, 0)
+    TextLabel.Font = Enum.Font.SourceSansSemibold
+    TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    TextLabel.TextScaled = true
+    TextLabel.TextSize = 14.000
+    TextLabel.Text = Text
+    TextLabel.TextWrapped = true
+
+    PropertyLine1.Name = "PropertyLine1"
+    PropertyLine1.Parent = TextLabel
+    PropertyLine1.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+    PropertyLine1.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    PropertyLine1.BorderSizePixel = 0
+    PropertyLine1.Position = UDim2.new(0, 0, 0.965750217, 0)
+    PropertyLine1.Size = UDim2.new(0, 200, 0, 1)
+end
+
+function UIlib:AddPropertiesSubButton(TargetProperties,Title,Callback)
+    local Button = Instance.new("TextButton")
+    local Line = Instance.new("Frame")
+    local UICorner = Instance.new("UICorner")
+    
+    Button.Name = Title
+    Button.Parent = TargetProperties.Parent[TargetProperties.Name].ScrollingFrame
+    Button.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
+    Button.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    Button.BorderSizePixel = 0
+    Button.Size = UDim2.new(0, 200, 0, 45)
+    Button.Font = Enum.Font.SourceSansSemibold
+    Button.TextColor3 = Color3.fromRGB(255, 255, 255)
+    Button.TextSize = 28.000
+    Button.Text = Title
+    
+    Line.Name = "Line"
+    Line.Parent = Button
+    Line.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+    Line.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    Line.BorderSizePixel = 0
+    Line.Position = UDim2.new(0, 0, 0.98222214, 0)
+    Line.Size = UDim2.new(0, 200, 0, 1)
+    
+    
+    UICorner.CornerRadius = UDim.new(2, 0)
+
+
+    Button.MouseButton1Click:Connect(function()
+        Callback()
+    end)
+end
+
+function UIlib:AddPropertiesToggle(TargetProperties,Title,Callback)
+    local Button = Instance.new("TextButton")
+    local Line = Instance.new("Frame")
+    local Display = Instance.new("Frame")
+    local UICorner = Instance.new("UICorner")
+    
+    Button.Name = Title
+    Button.Parent = TargetProperties.Parent[TargetProperties.Name].ScrollingFrame
+    Button.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
+    Button.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    Button.BorderSizePixel = 0
+    Button.Size = UDim2.new(0, 200, 0, 45)
+    Button.Font = Enum.Font.SourceSansSemibold
+    Button.TextColor3 = Color3.fromRGB(255, 255, 255)
+    Button.TextSize = 28.000
+    Button.Text = Title
+    
+    Line.Name = "Line"
+    Line.Parent = Button
+    Line.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+    Line.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    Line.BorderSizePixel = 0
+    Line.Position = UDim2.new(0, 0, 0.98222214, 0)
+    Line.Size = UDim2.new(0, 200, 0, 1)
+    
+    Display.Name = "Display"
+    Display.Parent = Button
+    Display.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+    Display.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    Display.BorderSizePixel = 0
+    Display.Position = UDim2.new(0.0500000007, 0, 0.355555564, 0)
+    Display.Size = UDim2.new(0, 12, 0, 12)
+    
+    UICorner.CornerRadius = UDim.new(2, 0)
+    UICorner.Parent = Display
+
+    Button.MouseButton1Click:Connect(function()
+        if Display.BackgroundColor3 == Color3.fromRGB(255, 0, 0) then
+            Display.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+            Callback(true) -- enabled
+        else
+            Display.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+            Callback(false) -- not enabled
+        end
+    end)
+end
+
+function UIlib:AddPropertiesTextInput(TargetProperties,Text)
+    local TextInput = Instance.new("TextBox")
+    local PropertyLine1 = Instance.new("Frame")
+    
+    
+    TextInput.Name = "TextInput"
+    TextInput.Parent =TargetProperties.Parent[TargetProperties.Name].ScrollingFrame
+    TextInput.BackgroundColor3 = Color3.fromRGB(24, 24, 24)
+    TextInput.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    TextInput.BorderSizePixel = 0
+    TextInput.Size = UDim2.new(0, 200, 0, 35)
+    TextInput.Font = Enum.Font.SourceSansSemibold
+    TextInput.PlaceholderText = "Bind: None"
+    TextInput.Text = Text
+    TextInput.TextColor3 = Color3.fromRGB(255, 255, 255)
+    TextInput.TextSize = 28.000
+    TextInput.TextWrapped = true
+    
+    PropertyLine1.Name = "PropertyLine1"
+    PropertyLine1.Parent = TextInput
+    PropertyLine1.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+    PropertyLine1.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    PropertyLine1.BorderSizePixel = 0
+    PropertyLine1.Position = UDim2.new(0, 0, 0.965750217, 0)
+    PropertyLine1.Size = UDim2.new(0, 200, 0, 1)
+end
+
+function UIlib:InitPopupSystem(DexionUI) 
+    local NotificationList = Instance.new("Frame")
+    local UIListLayout = Instance.new("UIListLayout")
+
+    NotificationList.Name = "NotificationList"
+    NotificationList.Parent = DexionUI
+    NotificationList.AnchorPoint = Vector2.new(0.5, 0.5)
+    NotificationList.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    NotificationList.BackgroundTransparency = 1.000
+    NotificationList.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    NotificationList.BorderSizePixel = 0
+    NotificationList.Position = UDim2.new(0.920000017, 0, 0.592000008, 0)
+    NotificationList.Size = UDim2.new(0.148000002, 0, 0.760999978, 0)
+
+    UIListLayout.Parent = NotificationList
+    UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+    UIListLayout.VerticalAlignment = Enum.VerticalAlignment.Bottom
+    UIListLayout.Padding = UDim.new(0, 15)
+
+
+    local PopupSystem = {}
+
+    function PopupSystem:InformationPopup(TitleText,Text,Duration)
+        local InformationNotification = Instance.new("Frame")
+        local UICorner = Instance.new("UICorner")
+        local Title = Instance.new("TextLabel")
+        local Waitbar = Instance.new("Frame")
+        local UICorner_2 = Instance.new("UICorner")
+        local Description = Instance.new("TextLabel")
+        local Selectedinfo = Instance.new("ImageLabel")
+        local UIStroke = Instance.new("UIStroke")
+
+        InformationNotification.Name = "InformationNotification"
+        InformationNotification.Parent = NotificationList
+        InformationNotification.AnchorPoint = Vector2.new(0.5, 0.5)
+        InformationNotification.BackgroundColor3 = Color3.fromRGB(37, 37, 37)
+        InformationNotification.BorderColor3 = Color3.fromRGB(0, 0, 0)
+        InformationNotification.BorderSizePixel = 0
+        InformationNotification.Position = UDim2.new(0.501730084, 0, 0.0750825107, 0)
+        InformationNotification.Size = UDim2.new(0, 290, 0, 91)
+
+        UIStroke.Color = Color3.fromRGB(255,255,255)
+        UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+        UIStroke.LineJoinMode = Enum.LineJoinMode.Round
+        UIStroke.Thickness = 2
+        UIStroke.Transparency = 0
+
+        UICorner.Parent = InformationNotification
+        UIStroke.Parent = InformationNotification
+
+        Title.Name = "Title"
+        Title.Parent = InformationNotification
+        Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        Title.BackgroundTransparency = 1.000
+        Title.BorderColor3 = Color3.fromRGB(0, 0, 0)
+        Title.BorderSizePixel = 0
+        Title.Position = UDim2.new(0.118704543, 0, 0.0109890113, 0)
+        Title.Size = UDim2.new(0, 260, 0, 29)
+        Title.Font = Enum.Font.SourceSansBold
+        Title.Text = TitleText
+        Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+        Title.TextScaled = true
+        Title.TextSize = 14.000
+        Title.TextWrapped = true
+        Title.TextXAlignment = Enum.TextXAlignment.Left
+
+        Waitbar.Name = "Waitbar"
+        Waitbar.Parent = InformationNotification
+        Waitbar.AnchorPoint = Vector2.new(0.5, 0)
+        Waitbar.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        Waitbar.BorderColor3 = Color3.fromRGB(0, 0, 0)
+        Waitbar.BorderSizePixel = 0
+        Waitbar.Position = UDim2.new(0.5, 0, 0.896203876, 0)
+        Waitbar.Size = UDim2.new(0, 280, 0, 6)
+
+        UICorner_2.CornerRadius = UDim.new(1, 0)
+        UICorner_2.Parent = Waitbar
+
+        Description.Name = "Description"
+        Description.Parent = InformationNotification
+        Description.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        Description.BackgroundTransparency = 1.000
+        Description.BorderColor3 = Color3.fromRGB(0, 0, 0)
+        Description.BorderSizePixel = 0
+        Description.Position = UDim2.new(0.0172413792, 0, 0.310190052, 0)
+        Description.Size = UDim2.new(0, 285, 0, 17)
+        Description.Font = Enum.Font.SourceSansBold
+        Description.Text = Text
+        Description.TextColor3 = Color3.fromRGB(175, 175, 175)
+        Description.TextScaled = true
+        Description.TextSize = 14.000
+        Description.TextWrapped = true
+        Description.TextXAlignment = Enum.TextXAlignment.Left
+
+        Selectedinfo.Name = "Selected: info"
+        Selectedinfo.Parent = InformationNotification
+        Selectedinfo.BackgroundTransparency = 1.000
+        Selectedinfo.Size = UDim2.new(0, 34, 0, 30)
+        Selectedinfo.Image = "rbxassetid://2790676563"
+        Selectedinfo.ScaleType = Enum.ScaleType.Fit
+
+
+        local function FadeOut()
+            Waitbar:TweenSize(UDim2.new(0, 0, 0, 6), Enum.EasingDirection.Out, Enum.EasingStyle.Quint, Duration, true)
+            wait(Duration)
+            InformationNotification:Destroy()
+        end
+
+        coroutine.wrap(FadeOut)()
+
+    end
+
+    function PopupSystem:WarningPopup(TitleText,Text,Duration)
+        local WarningNotification = Instance.new("Frame")
+        local UICorner = Instance.new("UICorner")
+        local Title = Instance.new("TextLabel")
+        local Waitbar = Instance.new("Frame")
+        local UICorner_2 = Instance.new("UICorner")
+        local Description = Instance.new("TextLabel")
+        local Warning = Instance.new("ImageLabel")
+        local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")					
+        local UIStroke = Instance.new("UIStroke")
+
+        --Properties:
+
+        WarningNotification.Name = "WarningNotification"
+        WarningNotification.Parent = NotificationList
+        WarningNotification.AnchorPoint = Vector2.new(0.5, 0.5)
+        WarningNotification.BackgroundColor3 = Color3.fromRGB(37, 37, 37)
+        WarningNotification.BorderColor3 = Color3.fromRGB(0, 0, 0)
+        WarningNotification.BorderSizePixel = 0
+        WarningNotification.Position = UDim2.new(0.501730084, 0, 0.0750825107, 0)
+        WarningNotification.Size = UDim2.new(0, 290, 0, 91)
+
+        UIStroke.Color = Color3.fromRGB(255,255,0)
+        UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+        UIStroke.LineJoinMode = Enum.LineJoinMode.Round
+        UIStroke.Thickness = 2
+        UIStroke.Transparency = 0
+
+        UICorner.Parent = WarningNotification
+        UIStroke.Parent = WarningNotification
+
+        Title.Name = "Title"
+        Title.Parent = WarningNotification
+        Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        Title.BackgroundTransparency = 1.000
+        Title.BorderColor3 = Color3.fromRGB(0, 0, 0)
+        Title.BorderSizePixel = 0
+        Title.Position = UDim2.new(0.118704543, 0, 0.0109890113, 0)
+        Title.Size = UDim2.new(0, 260, 0, 29)
+        Title.Font = Enum.Font.SourceSansBold
+        Title.Text = TitleText
+        Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+        Title.TextScaled = true
+        Title.TextSize = 14.000
+        Title.TextWrapped = true
+        Title.TextXAlignment = Enum.TextXAlignment.Left
+
+        Waitbar.Name = "Waitbar"
+        Waitbar.Parent = WarningNotification
+        Waitbar.AnchorPoint = Vector2.new(0.5, 0)
+        Waitbar.BackgroundColor3 = Color3.fromRGB(255, 255, 0)
+        Waitbar.BorderColor3 = Color3.fromRGB(0, 0, 0)
+        Waitbar.BorderSizePixel = 0
+        Waitbar.Position = UDim2.new(0.5, 0, 0.896203876, 0)
+        Waitbar.Size = UDim2.new(0, 280, 0, 6)
+
+        UICorner_2.CornerRadius = UDim.new(1, 0)
+        UICorner_2.Parent = Waitbar
+
+        Description.Name = "Description"
+        Description.Parent = WarningNotification
+        Description.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        Description.BackgroundTransparency = 1.000
+        Description.BorderColor3 = Color3.fromRGB(0, 0, 0)
+        Description.BorderSizePixel = 0
+        Description.Position = UDim2.new(0.0172413792, 0, 0.310190052, 0)
+        Description.Size = UDim2.new(0, 285, 0, 17)
+        Description.Font = Enum.Font.SourceSansBold
+        Description.Text = Text
+        Description.TextColor3 = Color3.fromRGB(175, 175, 175)
+        Description.TextScaled = true
+        Description.TextSize = 14.000
+        Description.TextWrapped = true
+        Description.TextXAlignment = Enum.TextXAlignment.Left
+
+        Warning.Name = "Warning"
+        Warning.Parent = WarningNotification
+        Warning.BackgroundTransparency = 1.000
+        Warning.Position = UDim2.new(0.0152558424, 0, 0.0457508788, 0)
+        Warning.Size = UDim2.new(0, 24, 0, 24)
+        Warning.Image = "rbxassetid://8445470392"
+        Warning.ImageColor3 = Color3.fromRGB(255, 255, 0)
+        Warning.ImageRectOffset = Vector2.new(104, 704)
+        Warning.ImageRectSize = Vector2.new(96, 96)
+
+        UIAspectRatioConstraint.Parent = Warning
+        UIAspectRatioConstraint.DominantAxis = Enum.DominantAxis.Height
+
+        local function FadeOut()
+            Waitbar:TweenSize(UDim2.new(0, 0, 0, 6), Enum.EasingDirection.Out, Enum.EasingStyle.Quint, Duration, true)
+            wait(Duration)
+            WarningNotification:Destroy()
+        end
+
+        coroutine.wrap(FadeOut)()
+
+    end
+
+    function PopupSystem:ErrorPopup(TitleText,Text,Duration)
+        local ErrorNotification = Instance.new("Frame")
+        local UICorner = Instance.new("UICorner")
+        local Title = Instance.new("TextLabel")
+        local Waitbar = Instance.new("Frame")
+        local UICorner_2 = Instance.new("UICorner")
+        local Description = Instance.new("TextLabel")
+        local Selectednew_releases = Instance.new("ImageLabel")
+        local UIStroke = Instance.new("UIStroke")
+
+        ErrorNotification.Name = "ErrorNotification"
+        ErrorNotification.Parent = NotificationList
+        ErrorNotification.AnchorPoint = Vector2.new(0.5, 0.5)
+        ErrorNotification.BackgroundColor3 = Color3.fromRGB(37, 37, 37)
+        ErrorNotification.BorderColor3 = Color3.fromRGB(0, 0, 0)
+        ErrorNotification.BorderSizePixel = 0
+        ErrorNotification.Position = UDim2.new(0.501730084, 0, 0.0750825107, 0)
+        ErrorNotification.Size = UDim2.new(0, 290, 0, 91)
+
+        UIStroke.Color = Color3.fromRGB(255,0,0)
+        UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+        UIStroke.LineJoinMode = Enum.LineJoinMode.Round
+        UIStroke.Thickness = 2
+        UIStroke.Transparency = 0
+
+        UICorner.Parent = ErrorNotification
+        UIStroke.Parent = ErrorNotification
+
+        Title.Name = "Title"
+        Title.Parent = ErrorNotification
+        Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        Title.BackgroundTransparency = 1.000
+        Title.BorderColor3 = Color3.fromRGB(0, 0, 0)
+        Title.BorderSizePixel = 0
+        Title.Position = UDim2.new(0.118704543, 0, 0.0109890113, 0)
+        Title.Size = UDim2.new(0, 260, 0, 29)
+        Title.Font = Enum.Font.SourceSansBold
+        Title.Text = TitleText
+        Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+        Title.TextScaled = true
+        Title.TextSize = 14.000
+        Title.TextWrapped = true
+        Title.TextXAlignment = Enum.TextXAlignment.Left
+
+        Waitbar.Name = "Waitbar"
+        Waitbar.Parent = ErrorNotification
+        Waitbar.AnchorPoint = Vector2.new(0.5, 0)
+        Waitbar.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+        Waitbar.BorderColor3 = Color3.fromRGB(0, 0, 0)
+        Waitbar.BorderSizePixel = 0
+        Waitbar.Position = UDim2.new(0.5, 0, 0.896203876, 0)
+        Waitbar.Size = UDim2.new(0, 280, 0, 6)
+
+        UICorner_2.CornerRadius = UDim.new(1, 0)
+        UICorner_2.Parent = Waitbar
+
+        Description.Name = "Description"
+        Description.Parent = ErrorNotification
+        Description.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        Description.BackgroundTransparency = 1.000
+        Description.BorderColor3 = Color3.fromRGB(0, 0, 0)
+        Description.BorderSizePixel = 0
+        Description.Position = UDim2.new(0.0172413792, 0, 0.310190052, 0)
+        Description.Size = UDim2.new(0, 285, 0, 17)
+        Description.Font = Enum.Font.SourceSansBold
+        Description.Text = Text
+        Description.TextColor3 = Color3.fromRGB(175, 175, 175)
+        Description.TextScaled = true
+        Description.TextSize = 14.000
+        Description.TextWrapped = true
+        Description.TextXAlignment = Enum.TextXAlignment.Left
+
+        Selectednew_releases.Name = "Selected: new_releases"
+        Selectednew_releases.Parent = ErrorNotification
+        Selectednew_releases.BackgroundTransparency = 1.000
+        Selectednew_releases.Size = UDim2.new(0, 28, 0, 30)
+        Selectednew_releases.Image = "rbxassetid://2746364987"
+        Selectednew_releases.ImageColor3 = Color3.fromRGB(255, 0, 0)
+        Selectednew_releases.ScaleType = Enum.ScaleType.Fit
+
+        local function FadeOut()
+            Waitbar:TweenSize(UDim2.new(0, 0, 0, 6), Enum.EasingDirection.Out, Enum.EasingStyle.Quint, Duration, true)
+            wait(Duration)
+            ErrorNotification:Destroy()
+        end
+
+        coroutine.wrap(FadeOut)()
+
+    end
+
+    return PopupSystem
 end
 
 return UIlib  
