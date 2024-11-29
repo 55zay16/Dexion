@@ -113,7 +113,7 @@ local CombatThread = coroutine.create(function()
                     end
                 end
 
-                if Values["tpaura"] == true and TempDisableAura == false and Target.Character.Humanoid.Health > 0 and game.Players.LocalPlayer.Character.Humanoid.Health < 40 then
+                if Values["tpaura"] == true and TempDisableAura == false and Target.Character.Humanoid.Health > 0 and game.Players.LocalPlayer.Character.Humanoid.Health > 40 then
                     task.wait(0.05)
                     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame - (game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.lookVector * 2.5)
                     
