@@ -1,4 +1,3 @@
-
 local Players = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
 local UIlib = loadstring(game:HttpGet("https://raw.githubusercontent.com/55zay16/Dexion/refs/heads/main/UIlib.lua"))()
@@ -21,36 +20,6 @@ local CombatTab = UIlib:AddTab(CombatWarriors,"Combat",0.092,0,0.106,0)
 local MovementTab = UIlib:AddTab(CombatWarriors,"Movement",0.092 + 0.167,0,0.106,0)
 local VisualsTab = UIlib:AddTab(CombatWarriors,"Visuals",0.092 + (0.167 * 2),0,0.106,0)
 local UtilitysTab = UIlib:AddTab(CombatWarriors,"Utility",0.092 + (0.167 * 3),0,0.106,0)
-
-UIlib:AddButton(UtilitysTab,"Anti Void",function()
-    Values["anti void"] = not Values["anti void"]
-
-    pcall(function()
-        if Values["anti void"] == true then  
-            if not game.Workspace:FindFirstChild("AntiVoid") then 
-                local AntiVoidPart = Instance.new("Part")
-
-                AntiVoidPart.Parent = game.Workspace
-                AntiVoidPart.Name = "AntiVoid"
-                AntiVoidPart.Transparency = 0.5
-                AntiVoidPart.CanCollide = true
-                AntiVoidPart.Size = Vector3.new(1000, 1, 1000)
-                AntiVoidPart.Anchored = true
-                AntiVoidPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,-20,0) 
-
-                AntiVoidPart.Touched:Connect(function(hit)
-                    if hit.Parent.Name == game.Players.LocalPlayer.Name then
-                        hit.Parent.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,20,0)
-                    end
-                end)
-            end
-        else
-            if game.Workspace:FindFirstChild("AntiVoid") then
-                game.Workspace.AntiVoid:Destroy()
-            end
-        end
-    end)
-end)
 
 UIlib:AddButton(CombatTab,"Kill Aura",function()
     Values["killaura"] = not Values["killaura"]
